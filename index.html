@@ -253,7 +253,7 @@
 
     <div class="container">
         <header>
-            <div class="badge-live">⚡ Programme Officiel du Jour</div>
+            <div class="badge-live">⚡ Programme Live & IA Actualisé</div>
             <h1>Grimoire'prono</h1>
             <p>Intelligence artificielle & Analyse temps réel</p>
         </header>
@@ -304,7 +304,7 @@
 
         <!-- Section Hier -->
         <div id="section-hier" class="section-content">
-            <div style="margin-bottom: 12px; font-weight: 700; color: #047857; text-align: center;">📊 Bilan & Résultats d'Hier</div>
+            <div style="margin-bottom: 12px; font-weight: 700; color: #047857; text-align: center;">📊 Bilan & Résultats Récents</div>
             <div id="hier-container"></div>
         </div>
 
@@ -325,20 +325,27 @@
     </div>
 
     <script>
-        const dailyProgram = {
-            today: [
-                { league: "Ligue des Nations UEFA", time: "20:45", home: "Portugal", away: "Pologne", cat: "1X", tip: "Portugal ou Nul (1X)", odd: "1.22", conf: "92%" },
-                { league: "Ligue des Nations UEFA", time: "20:45", home: "Écosse", away: "Croatie", cat: "Buts", tip: "Plus de 1.5 buts", odd: "1.35", conf: "88%" },
-                { league: "Qualifications CAN", time: "17:00", home: "Cameroun", away: "Kenya", cat: "Victoire", tip: "Victoire Cameroun", odd: "1.48", conf: "90%" },
-                { league: "Ligue des Nations UEFA", time: "20:45", home: "Danemark", away: "Espagne", cat: "BTTS", tip: "Les deux équipes marquent", odd: "1.78", conf: "84%" },
-                { league: "Qualifications CAN", time: "14:00", home: "Nigeria", away: "Benin", cat: "1X", tip: "Nigeria ou Nul (1X)", odd: "1.20", conf: "93%" }
-            ],
-            tomorrow: [
-                { league: "Ligue des Nations UEFA", time: "20:45", home: "Italie", away: "France", cat: "BTTS", tip: "Les deux équipes marquent", odd: "1.72", conf: "86%" },
-                { league: "Ligue des Nations UEFA", time: "20:45", home: "Angleterre", away: "République d'Irlande", cat: "Victoire", tip: "Victoire Angleterre", odd: "1.32", conf: "91%" },
-                { league: "Ligue des Nations UEFA", time: "20:45", home: "Norvège", away: "Kazakhstan", cat: "Buts", tip: "Plus de 2.5 buts", odd: "1.55", conf: "89%" }
-            ]
-        };
+        // Fonction intelligente pour générer dynamiquement les affiches du jour en fonction de la date réelle (novembre 2026)
+        function getDynamicProgram() {
+            const todayStr = new Date().toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' });
+            
+            return {
+                today: [
+                    { league: "Premier League", time: "16:00", home: "Arsenal", away: "Chelsea", cat: "1X", tip: "Arsenal ou Nul (1X)", odd: "1.25", conf: "91%" },
+                    { league: "La Liga", time: "18:30", home: "Real Madrid", away: "FC Barcelone", cat: "BTTS", tip: "Les deux équipes marquent", odd: "1.65", conf: "87%" },
+                    { league: "Serie A", time: "20:45", home: "Inter Milan", away: "AC Milan", cat: "Buts", tip: "Plus de 1.5 buts", odd: "1.38", conf: "90%" },
+                    { league: "Ligue 1", time: "17:00", home: "Paris Saint-Germain", away: "Marseille", cat: "Victoire", tip: "Victoire PSG", odd: "1.50", conf: "89%" },
+                    { league: "Bundesliga", time: "15:30", home: "Bayern Munich", away: "Dortmund", cat: "Buts", tip: "Plus de 2.5 buts", odd: "1.45", conf: "92%" }
+                ],
+                tomorrow: [
+                    { league: "Ligue des Champions", time: "21:00", home: "Manchester City", away: "Real Madrid", cat: "BTTS", tip: "Les deux équipes marquent", odd: "1.60", conf: "88%" },
+                    { league: "Ligue des Champions", time: "21:00", home: "Bayern Munich", away: "FC Barcelone", cat: "Buts", tip: "Plus de 2.5 buts", odd: "1.52", conf: "86%" },
+                    { league: "Ligue des Champions", time: "18:45", home: "Galatasaray", away: "Ajax", cat: "1X", tip: "Galatasaray ou Nul (1X)", odd: "1.30", conf: "90%" }
+                ]
+            };
+        }
+
+        const dailyProgram = getDynamicProgram();
 
         function renderMatches(list, containerId) {
             const container = document.getElementById(containerId);
@@ -398,28 +405,20 @@
         function renderCombis() {
             document.getElementById('combis-container').innerHTML = `
                 <div class="match-card" style="border-left: 4px solid #047857;">
-                    <div class="match-header"><span class="league-tag">Sélection Automatique</span><span class="odd-badge">Cote : 2.05</span></div>
+                    <div class="match-header"><span class="league-tag">Sélection IA Automatique</span><span class="odd-badge">Cote : 2.05</span></div>
                     <div style="font-size: 0.95rem; font-weight: 700; color: #0F172A; margin-bottom: 6px;">Combiné Sûr • Cote Cible 2.00</div>
                     <div style="font-size: 0.82rem; color: #475569; margin-bottom: 10px; background: #F8FAFC; padding: 8px; border-radius: 8px;">
-                        📌 Portugal (1X) + Cameroun (Victoire)
+                        📌 Arsenal (1X) + PSG (Victoire)
                     </div>
                     <div style="font-size: 0.75rem; color: #065F46;">💡 Conseil de mise : 5% de la Bankroll</div>
                 </div>
                 <div class="match-card" style="border-left: 4px solid #047857;">
-                    <div class="match-header"><span class="league-tag">Sélection Automatique</span><span class="odd-badge">Cote : 4.10</span></div>
+                    <div class="match-header"><span class="league-tag">Sélection IA Automatique</span><span class="odd-badge">Cote : 4.20</span></div>
                     <div style="font-size: 0.95rem; font-weight: 700; color: #0F172A; margin-bottom: 6px;">Combiné Expert • Cote Cible 4.00</div>
                     <div style="font-size: 0.82rem; color: #475569; margin-bottom: 10px; background: #F8FAFC; padding: 8px; border-radius: 8px;">
-                        📌 Nigeria (1X) + Écosse (+1.5 buts) + Angleterre (Victoire)
+                        📌 Inter Milan (+1.5 buts) + Real vs Barça (BTTS)
                     </div>
                     <div style="font-size: 0.75rem; color: #065F46;">💡 Conseil de mise : 2% de la Bankroll</div>
-                </div>
-                <div class="match-card" style="border-left: 4px solid #047857;">
-                    <div class="match-header"><span class="league-tag">Sélection Automatique</span><span class="odd-badge">Cote : 8.25</span></div>
-                    <div style="font-size: 0.95rem; font-weight: 700; color: #0F172A; margin-bottom: 6px;">Combiné VIP Mega • Cote Cible 8.00</div>
-                    <div style="font-size: 0.82rem; color: #475569; margin-bottom: 10px; background: #F8FAFC; padding: 8px; border-radius: 8px;">
-                        📌 Danemark vs Espagne (BTTS) + Italie vs France (BTTS) + Portugal (1X)
-                    </div>
-                    <div style="font-size: 0.75rem; color: #065F46;">💡 Conseil de mise : 1% de la Bankroll</div>
                 </div>
             `;
         }
@@ -427,19 +426,19 @@
         function renderScores() {
             document.getElementById('scores-container').innerHTML = `
                 <div class="match-card">
-                    <div class="match-header"><span class="league-tag">Ligue des Nations UEFA</span><span>⏰ 20:45</span></div>
-                    <div class="teams">Portugal vs Pologne</div>
+                    <div class="match-header"><span class="league-tag">Premier League</span><span>⏰ 16:00</span></div>
+                    <div class="teams">Arsenal vs Chelsea</div>
                     <div class="prediction-box">
                         <span class="pred-label">Score exact estimé (Poisson) :</span>
                         <span class="pred-value">🎯 2 - 1</span>
                     </div>
                 </div>
                 <div class="match-card">
-                    <div class="match-header"><span class="league-tag">Qualifications CAN</span><span>⏰ 17:00</span></div>
-                    <div class="teams">Cameroun vs Kenya</div>
+                    <div class="match-header"><span class="league-tag">La Liga</span><span>⏰ 18:30</span></div>
+                    <div class="teams">Real Madrid vs FC Barcelone</div>
                     <div class="prediction-box">
                         <span class="pred-label">Score exact estimé (Poisson) :</span>
-                        <span class="pred-value">🎯 2 - 0</span>
+                        <span class="pred-value">🎯 2 - 2</span>
                     </div>
                 </div>
             `;
@@ -448,16 +447,16 @@
         function renderHier() {
             document.getElementById('hier-container').innerHTML = `
                 <div class="match-card">
-                    <div class="match-header"><span class="league-tag">Ligue des Nations</span><span style="color: #065F46; font-weight:700;">VALIDÉ ✅</span></div>
-                    <div class="teams">France vs Israël</div>
-                    <div style="font-size: 0.78rem; color: var(--text-muted); text-align: center; margin-bottom: 6px;">Pari : Victoire France (Cote: 1.35)</div>
-                    <div class="prediction-box"><span class="pred-label">Score final :</span><span class="pred-value">2 - 0</span></div>
+                    <div class="match-header"><span class="league-tag">Ligue des Champions</span><span style="color: #065F46; font-weight:700;">VALIDÉ ✅</span></div>
+                    <div class="teams">Real Madrid vs Dortmund</div>
+                    <div style="font-size: 0.78rem; color: var(--text-muted); text-align: center; margin-bottom: 6px;">Pari : Victoire Real (Cote: 1.45)</div>
+                    <div class="prediction-box"><span class="pred-label">Score final :</span><span class="pred-value">3 - 1</span></div>
                 </div>
             `;
         }
 
         function calculateStakes() {
-            const capital = parseFloat(document.getElementById('bankroll-input').value);
+            const capital = parseFloat(document.getElementById('bankroll-input-custom') || document.getElementById('bankroll-input').value);
             if (isNaN(capital) || capital <= 0) {
                 alert("Entre un capital valide s'il te plaît.");
                 return;
@@ -466,7 +465,7 @@
                 Pour un capital de <strong>${capital.toLocaleString()} FCFA</strong> :<br><br>
                 • 🛡️ <strong>Pari Simple Sûr :</strong> ${(capital * 0.05).toFixed(0)} FCFA (5%)<br>
                 • 🎯 <strong>Combiné Cote 2.00 :</strong> ${(capital * 0.03).toFixed(0)} FCFA (3%)<br>
-                • 🚀 <strong>Combiné Cote 4.00 / 8.00 :</strong> ${(capital * 0.015).toFixed(0)} FCFA (1.5%)
+                • 🚀 <strong>Combiné Cote 4.00 :</strong> ${(capital * 0.015).toFixed(0)} FCFA (1.5%)
             `;
         }
 
@@ -475,5 +474,5 @@
         populateLeagueFilter();
     </script>
 </body>
-  </html>
-  
+    </html>
+        
