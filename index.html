@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grimoire'prono | Plateforme Pro de Paris Sportifs</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #F8FAF9;
+            --card-bg: #FFFFFF;
+            --text-main: #1E293B;
+            --text-muted: #64748B;
+            --primary-green: #10B981;
+            --green-dark: #047857;
+            --green-light: #ECFDF5;
+            --border-color: #E2E8F0;
+            --shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            padding: 14px;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .badge-live {
+            display: inline-block;
+            background: var(--green-light);
+            color: var(--primary-green);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        header h1 {
+            font-size: 1.65rem;
+            font-weight: 700;
+            color: #0F172A;
+            letter-spacing: -0.5px;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 2px;
+        }
+
+        /* Menu de navigation */
+        .nav-menu {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+            margin-bottom: 14px;
+            background: #E2E8F0;
+            padding: 4px;
+            border-radius: 12px;
+        }
+
+        .nav-btn {
+            border: none;
+            background: transparent;
+            padding: 9px 4px;
+            border-radius: 9px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .nav-btn.active {
+            background: var(--card-bg);
+            color: var(--green-dark);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+        }
+
+        /* Filtres */
+        .filters-container {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+        }
+
+        .filter-select {
+            padding: 8px 12px;
+            border: 1px solid var(--border-color);
+            background: var(--card-bg);
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-main);
+            outline: none;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .section-content {
+            display: none;
+        }
+
+        .section-content.active {
+            display: block;
+        }
+
+        /* Cartes de match */
+        .match-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 12px;
+            box-shadow: var(--shadow);
+        }
+
+        .match-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .league-tag {
+            background: #F1F5F9;
+            padding: 2px 8px;
+            border-radius: 6px;
+            color: #475569;
+            font-weight: 600;
+        }
+
+        .teams {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #0F172A;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .prediction-box {
+            background: var(--green-light);
+            border-left: 4px solid var(--primary-green);
+            padding: 10px 12px;
+            border-radius: 0 10px 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .pred-label {
+            font-size: 0.75rem;
+            color: #065F46;
+            font-weight: 500;
+            display: block;
+        }
+
+        .pred-value {
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: var(--green-dark);
+        }
+
+        .odd-badge {
+            background: #047857;
+            color: #FFF;
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            white-space: nowrap;
+        }
+
+        /* Bankroll Form */
+        .bankroll-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 18px;
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+        }
+
+        .bankroll-card h3 {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: #0F172A;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .input-group input {
+            flex: 1;
+            padding: 9px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .input-group button {
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            padding: 0 16px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .stake-rec {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            background: #F8FAFC;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .stake-rec strong {
+            color: var(--green-dark);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <div class="badge-live">⚡ Programme Officiel du Jour</div>
+            <h1>Grimoire'prono</h1>
+            <p>Intelligence artificielle & Analyse temps réel</p>
+        </header>
+
+        <!-- Menu de navigation -->
+        <div class="nav-menu">
+            <button class="nav-btn active" onclick="switchSection('today', this)">Aujourd'hui</button>
+            <button class="nav-btn" onclick="switchSection('tomorrow', this)">Demain</button>
+            <button class="nav-btn" onclick="switchSection('combis', this)">Combinés VIP</button>
+            <button class="nav-btn" onclick="switchSection('scores', this)">Scores Exacts</button>
+            <button class="nav-btn" onclick="switchSection('hier', this)">Hier</button>
+            <button class="nav-btn" onclick="switchSection('bankroll', this)" style="grid-column: span 3;">💰 Gestion de Bankroll & Mises</button>
+        </div>
+
+        <!-- Section Aujourd'hui -->
+        <div id="section-today" class="section-content active">
+            <div class="filters-container">
+                <select id="filter-league" class="filter-select" onchange="filterMatches()">
+                    <option value="all">🌐 Tous les championnats</option>
+                </select>
+                <select id="filter-pred" class="filter-select" onchange="filterMatches()">
+                    <option value="all">🎯 Tous les pronostics</option>
+                    <option value="1X">Victoire ou Nul (1X)</option>
+                    <option value="Victoire">Victoire simple</option>
+                    <option value="Buts">Total de buts (+1.5 / +2.5)</option>
+                    <option value="BTTS">Les deux équipes marquent</option>
+                </select>
+            </div>
+            <div id="matches-container"></div>
+        </div>
+
+        <!-- Section Demain -->
+        <div id="section-tomorrow" class="section-content">
+            <div id="matches-tomorrow-container"></div>
+        </div>
+
+        <!-- Section Combinés VIP -->
+        <div id="section-combis" class="section-content">
+            <div style="margin-bottom: 12px; font-weight: 700; color: #047857; text-align: center;">🎯 Les 3 Combinés VIP du Jour (1xBet)</div>
+            <div id="combis-container"></div>
+        </div>
+
+        <!-- Section Scores Exacts -->
+        <div id="section-scores" class="section-content">
+            <div style="margin-bottom: 12px; font-weight: 700; color: #047857; text-align: center;">⚽ Tendances de Scores Exacts (Poisson)</div>
+            <div id="scores-container"></div>
+        </div>
+
+        <!-- Section Hier -->
+        <div id="section-hier" class="section-content">
+            <div style="margin-bottom: 12px; font-weight: 700; color: #047857; text-align: center;">📊 Bilan & Résultats d'Hier</div>
+            <div id="hier-container"></div>
+        </div>
+
+        <!-- Section Bankroll -->
+        <div id="section-bankroll" class="section-content">
+            <div class="bankroll-card">
+                <h3>Gestion de Capital Avancée</h3>
+                <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px;">Entre ton capital pour calculer automatiquement tes mises recommandées.</p>
+                <div class="input-group">
+                    <input type="number" id="bankroll-input" placeholder="Ex: 50000 (FCFA)" value="50000">
+                    <button onclick="calculateStakes()">Calculer</button>
+                </div>
+                <div class="stake-rec" id="stake-result">
+                    Entre ton capital ci-dessus pour afficher les recommandations de mise sécurisées.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const dailyProgram = {
+            today: [
+                { league: "Ligue des Nations UEFA", time: "20:45", home: "Portugal", away: "Pologne", cat: "1X", tip: "Portugal ou Nul (1X)", odd: "1.22", conf: "92%" },
+                { league: "Ligue des Nations UEFA", time: "20:45", home: "Écosse", away: "Croatie", cat: "Buts", tip: "Plus de 1.5 buts", odd: "1.35", conf: "88%" },
+                { league: "Qualifications CAN", time: "17:00", home: "Cameroun", away: "Kenya", cat: "Victoire", tip: "Victoire Cameroun", odd: "1.48", conf: "90%" },
+                { league: "Ligue des Nations UEFA", time: "20:45", home: "Danemark", away: "Espagne", cat: "BTTS", tip: "Les deux équipes marquent", odd: "1.78", conf: "84%" },
+                { league: "Qualifications CAN", time: "14:00", home: "Nigeria", away: "Benin", cat: "1X", tip: "Nigeria ou Nul (1X)", odd: "1.20", conf: "93%" }
+            ],
+            tomorrow: [
+                { league: "Ligue des Nations UEFA", time: "20:45", home: "Italie", away: "France", cat: "BTTS", tip: "Les deux équipes marquent", odd: "1.72", conf: "86%" },
+                { league: "Ligue des Nations UEFA", time: "20:45", home: "Angleterre", away: "République d'Irlande", cat: "Victoire", tip: "Victoire Angleterre", odd: "1.32", conf: "91%" },
+                { league: "Ligue des Nations UEFA", time: "20:45", home: "Norvège", away: "Kazakhstan", cat: "Buts", tip: "Plus de 2.5 buts", odd: "1.55", conf: "89%" }
+            ]
+        };
+
+        function renderMatches(list, containerId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = list.map(m => `
+                <div class="match-card" data-league="${m.league}" data-cat="${m.cat}">
+                    <div class="match-header">
+                        <span class="league-tag">${m.league}</span>
+                        <span>⏰ ${m.time}</span>
+                    </div>
+                    <div class="teams">${m.home} vs ${m.away}</div>
+                    <div class="prediction-box">
+                        <div>
+                            <span class="pred-label">Pronostic validé (Confiance ${m.conf}) :</span>
+                            <span class="pred-value">${m.tip}</span>
+                        </div>
+                        <div class="odd-badge">1xBet @${m.odd}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function populateLeagueFilter() {
+            const select = document.getElementById('filter-league');
+            const leagues = [...new Set(dailyProgram.today.map(m => m.league))];
+            select.innerHTML = '<option value="all">🌐 Tous les championnats</option>' + 
+                leagues.map(l => `<option value="${l}">${l}</option>`).join('');
+        }
+
+        function filterMatches() {
+            const selectedLeague = document.getElementById('filter-league').value;
+            const selectedPred = document.getElementById('filter-pred').value;
+            const cards = document.querySelectorAll('#matches-container .match-card');
+
+            cards.forEach(card => {
+                const league = card.getAttribute('data-league');
+                const cat = card.getAttribute('data-cat');
+                
+                const matchLeague = (selectedLeague === 'all' || league === selectedLeague);
+                const matchPred = (selectedPred === 'all' || cat === selectedPred);
+
+                card.style.display = (matchLeague && matchPred) ? 'block' : 'none';
+            });
+        }
+
+        function switchSection(sectionId, btnElement) {
+            document.querySelectorAll('.section-content').forEach(sec => sec.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById('section-' + sectionId).classList.add('active');
+            btnElement.classList.add('active');
+
+            if(sectionId === 'combis') renderCombis();
+            if(sectionId === 'scores') renderScores();
+            if(sectionId === 'hier') renderHier();
+        }
+
+        function renderCombis() {
+            document.getElementById('combis-container').innerHTML = `
+                <div class="match-card" style="border-left: 4px solid #047857;">
+                    <div class="match-header"><span class="league-tag">Sélection Automatique</span><span class="odd-badge">Cote : 2.05</span></div>
+                    <div style="font-size: 0.95rem; font-weight: 700; color: #0F172A; margin-bottom: 6px;">Combiné Sûr • Cote Cible 2.00</div>
+                    <div style="font-size: 0.82rem; color: #475569; margin-bottom: 10px; background: #F8FAFC; padding: 8px; border-radius: 8px;">
+                        📌 Portugal (1X) + Cameroun (Victoire)
+                    </div>
+                    <div style="font-size: 0.75rem; color: #065F46;">💡 Conseil de mise : 5% de la Bankroll</div>
+                </div>
+                <div class="match-card" style="border-left: 4px solid #047857;">
+                    <div class="match-header"><span class="league-tag">Sélection Automatique</span><span class="odd-badge">Cote : 4.10</span></div>
+                    <div style="font-size: 0.95rem; font-weight: 700; color: #0F172A; margin-bottom: 6px;">Combiné Expert • Cote Cible 4.00</div>
+                    <div style="font-size: 0.82rem; color: #475569; margin-bottom: 10px; background: #F8FAFC; padding: 8px; border-radius: 8px;">
+                        📌 Nigeria (1X) + Écosse (+1.5 buts) + Angleterre (Victoire)
+                    </div>
+                    <div style="font-size: 0.75rem; color: #065F46;">💡 Conseil de mise : 2% de la Bankroll</div>
+                </div>
+                <div class="match-card" style="border-left: 4px solid #047857;">
+                    <div class="match-header"><span class="league-tag">Sélection Automatique</span><span class="odd-badge">Cote : 8.25</span></div>
+                    <div style="font-size: 0.95rem; font-weight: 700; color: #0F172A; margin-bottom: 6px;">Combiné VIP Mega • Cote Cible 8.00</div>
+                    <div style="font-size: 0.82rem; color: #475569; margin-bottom: 10px; background: #F8FAFC; padding: 8px; border-radius: 8px;">
+                        📌 Danemark vs Espagne (BTTS) + Italie vs France (BTTS) + Portugal (1X)
+                    </div>
+                    <div style="font-size: 0.75rem; color: #065F46;">💡 Conseil de mise : 1% de la Bankroll</div>
+                </div>
+            `;
+        }
+
+        function renderScores() {
+            document.getElementById('scores-container').innerHTML = `
+                <div class="match-card">
+                    <div class="match-header"><span class="league-tag">Ligue des Nations UEFA</span><span>⏰ 20:45</span></div>
+                    <div class="teams">Portugal vs Pologne</div>
+                    <div class="prediction-box">
+                        <span class="pred-label">Score exact estimé (Poisson) :</span>
+                        <span class="pred-value">🎯 2 - 1</span>
+                    </div>
+                </div>
+                <div class="match-card">
+                    <div class="match-header"><span class="league-tag">Qualifications CAN</span><span>⏰ 17:00</span></div>
+                    <div class="teams">Cameroun vs Kenya</div>
+                    <div class="prediction-box">
+                        <span class="pred-label">Score exact estimé (Poisson) :</span>
+                        <span class="pred-value">🎯 2 - 0</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderHier() {
+            document.getElementById('hier-container').innerHTML = `
+                <div class="match-card">
+                    <div class="match-header"><span class="league-tag">Ligue des Nations</span><span style="color: #065F46; font-weight:700;">VALIDÉ ✅</span></div>
+                    <div class="teams">France vs Israël</div>
+                    <div style="font-size: 0.78rem; color: var(--text-muted); text-align: center; margin-bottom: 6px;">Pari : Victoire France (Cote: 1.35)</div>
+                    <div class="prediction-box"><span class="pred-label">Score final :</span><span class="pred-value">2 - 0</span></div>
+                </div>
+            `;
+        }
+
+        function calculateStakes() {
+            const capital = parseFloat(document.getElementById('bankroll-input').value);
+            if (isNaN(capital) || capital <= 0) {
+                alert("Entre un capital valide s'il te plaît.");
+                return;
+            }
+            document.getElementById('stake-result').innerHTML = `
+                Pour un capital de <strong>${capital.toLocaleString()} FCFA</strong> :<br><br>
+                • 🛡️ <strong>Pari Simple Sûr :</strong> ${(capital * 0.05).toFixed(0)} FCFA (5%)<br>
+                • 🎯 <strong>Combiné Cote 2.00 :</strong> ${(capital * 0.03).toFixed(0)} FCFA (3%)<br>
+                • 🚀 <strong>Combiné Cote 4.00 / 8.00 :</strong> ${(capital * 0.015).toFixed(0)} FCFA (1.5%)
+            `;
+        }
+
+        renderMatches(dailyProgram.today, 'matches-container');
+        renderMatches(dailyProgram.tomorrow, 'matches-tomorrow-container');
+        populateLeagueFilter();
+    </script>
+</body>
+  </html>
+  
